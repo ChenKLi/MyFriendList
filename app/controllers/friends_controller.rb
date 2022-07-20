@@ -3,7 +3,7 @@ class FriendsController < ApplicationController
 
   # GET /friends or /friends.json
   def index
-    @friends = Friend.all
+    @friends = current_user.friends.all
   end
 
   # GET /friends/1 or /friends/1.json
@@ -21,7 +21,7 @@ class FriendsController < ApplicationController
 
   # POST /friends or /friends.json
   def create
-    @friend = Friend.new(friend_params)
+    @friend = current_user.friends.new(friend_params)
 
     respond_to do |format|
       if @friend.save
