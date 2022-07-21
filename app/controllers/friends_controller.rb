@@ -1,5 +1,7 @@
 class FriendsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_friend, only: %i[ show edit update destroy ]
+ 
 
   # GET /friends or /friends.json
   def index
@@ -12,7 +14,7 @@ class FriendsController < ApplicationController
 
   # GET /friends/new
   def new
-    @friend = Friend.new
+    @friend = current_user.friends.new
   end
 
   # GET /friends/1/edit
@@ -56,11 +58,12 @@ class FriendsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_friend
-      @friend = Friend.find(params[:id])
+      @friend = current_user.friends.find_by(id: params[:id])
+      redirect_to friends_path, notice: "Sorry, this guy maybe not your friend or even not exist" if @friend.nil?
     end
 
     # Only allow a list of trusted parameters through.
