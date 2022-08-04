@@ -1,4 +1,8 @@
-<h1>Hello World!!</h1>
-This is my first Rails WebPages...
-
+<% if user_signed_in? %>
+  <h1>Welcome <%= current_user.nickname%>!!</h1>
+  <%= link_to 'Check Your Friend List : )' , friends_path %>
+<% else %>
+  <h1>Hello!!</h1>
+  <p>This website is for recording your own <b>Friend List</b></p>
+<% end %>
 
