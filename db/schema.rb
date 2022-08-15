@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2022_08_04_101804) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "friends", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -20,7 +23,7 @@ ActiveRecord::Schema.define(version: 2022_08_04_101804) do
     t.string "twitter"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_friends_on_user_id"
   end
 
